@@ -121,31 +121,7 @@ The agent doesn't just display information. It:
 
 ### Data Flow Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           REQUEST FLOW                                       │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  1. USER ACTION          2. API LAYER              3. AGENT CORE          │
-│  ───────────────        ───────────────           ───────────────         │
-│                                                                              │
-│  Dashboard/               Flask Endpoint           RAgent.run_risk_audit() │
-│  Trigger Audit          → Validate Request          │
-│                            ↓                         ↓                      │
-│  Chat Message           → [Optional: SSE start]    LLMSwitch.select_model()│
-│                                                 ↓                            │
-│  Scenario Trigger                                     ↓                      │
-│                            Execute Tool         Hybrid Audit (7-Phase)     │
-│                            Return Response                                 │
-│                            ↓                                                 │
-│                        4. RESPONSE                                        │
-│                         ─────────                                         │
-│                                                                              │
-│  - JSON Response          - SSE Thought Stream     - PDF Report            │
-│  - Map Data Update       - Markdown Report         - Email Alert            │
-│                                                                              │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+![Data Flow](images/data-flow.png)
 
 ### Component Responsibilities
 
@@ -185,28 +161,7 @@ Resilienz.AI implements a refined autonomous agent loop inspired by ReAct (Reaso
 
 The agent uses an **optimised prompt architecture** with efficient token management:
 
-```
-┌────────────────────────────────────────────────────────────┐
-│  PROMPT STRUCTURE                                          │
-├────────────────────────────────────────────────────────────┤
-│                                                            │
-│  SYSTEM PROMPT                                             │
-│  ├── Role: Supply Chain Resilience Specialist               │
-│  ├── Operational boundaries                                 │
-│  └── Tool efficiency rules                                 │
-│                                                            │
-│  USER PROMPT                                               │
-│  ├── Context: Current audit data                          │
-│  ├── Task: Analysis instructions                          │
-│  └── Constraints: Output format                            │
-│                                                            │
-│  TOOL RESULTS                                              │
-│  ├── SQLite query results                                  │
-│  ├── Vector search hits                                    │
-│  └── Risk score calculations                               │
-│                                                            │
-└────────────────────────────────────────────────────────────┘
-```
+![Prompt Structure](images/prompt-structure.png)
 
 ### Decision-Making Strategy
 

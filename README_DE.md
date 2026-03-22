@@ -121,31 +121,7 @@ Der Agent zeigt nicht nur Informationen. Er:
 
 ### Datenfluss-Architektur
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           ANFRAGEFLUSS                                      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  1. BENUTZERAKTION     2. API SCHICHT          3. AGENTENKERN               │
-│  ───────────────       ───────────────          ───────────────             │
-│                                                                              │
-│  Dashboard/              Flask Endpoint             RAgent.run_risk_audit()  │
-│  Audit starten         → Anfrage prüfen             │                      │
-│                            ↓                         ↓                      │
-│  Chat-Nachricht        → [Optional: SSE start]    LLMSwitch.select_model()  │
-│                                                 ↓                            │
-│  Szenario auswählen                                  ↓                      │
-│                            Werkzeug ausführen    Hybrid Audit (7-Phasen)     │
-│                            Antwort zurückgeben                              │
-│                            ↓                                                │
-│                        4. ANTWORT                                           │
-│                         ─────────                                           │
-│                                                                              │
-│  - JSON Antwort          - SSE Thought-Trace    - PDF Bericht              │
-│  - Kartendaten          - Markdown Bericht      - E-Mail Alert              │
-│                                                                              │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+![Data Flow](images/data-flow.png)
 
 ### Komponenten-Verantwortlichkeiten
 
@@ -185,28 +161,7 @@ Resilienz.AI nutzt einen verbesserten autonomen Agentenloop. Er basiert auf ReAc
 
 Der Agent nutzt eine **optimierte Prompt-Architektur** mit effizientem Tokenmanagement:
 
-```
-┌────────────────────────────────────────────────────────────┐
-│  PROMPT-STRUKTUR                                           │
-├────────────────────────────────────────────────────────────┤
-│                                                             │
-│  SYSTEM PROMPT                                              │
-│  ├── Rolle: Lieferketten-Resilienz-Spezialist              │
-│  ├── Operative Grenzen                                      │
-│  └── Werkzeugeffizienz-Regeln                              │
-│                                                             │
-│  BENUTZER PROMPT                                            │
-│  ├── Kontext: Aktuelle Audit-Daten                          │
-│  ├── Aufgabe: Analyseanweisungen                            │
-│  └── Einschränkungen: Ausgabeformat                         │
-│                                                             │
-│  WERKZEUGERGEBNISSE                                         │
-│  ├── SQLite-Abfrageergebnisse                               │
-│  ├── Vektorsuchtreffer                                      │
-│  └── Risikoberechnungen                                     │
-│                                                             │
-└────────────────────────────────────────────────────────────┘
-```
+![Prompt Structure](images/prompt-structure.png)
 
 ### Entscheidungsstrategie
 
