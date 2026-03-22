@@ -1,0 +1,34 @@
+# Resilienz.AI — Git Ignore Rules
+# Files listed here will NEVER be pushed to GitHub
+
+# ─── Secrets (NEVER commit these) ───
+.env
+*.key
+
+# ─── Python cache ───────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ─── Virtual environment ─────────────
+venv/
+env/
+.venv/
+
+# ─── Database files (generated, not source code) ───
+data/resilienz.db
+data/vector_store/
+
+# ─── Generated CSV data ─────────────
+# Comment this out if you want to commit demo data
+data/*.csv
+
+# ─── IDE files ──────────────────────
+.vscode/
+.idea/
+*.swp
+
+# ─── Logs (generated, not source code) ───
+logs/

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resilienz.AI — Procurement Cockpit</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Using Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <h1>Resilienz.AI</h1>
+            </div>
+            <nav>
+                <button class="nav-btn active" onclick="showTab('audit')">🔍 Risk Audit</button>
+                <button class="nav-btn" onclick="showTab('inventory')">📦 Inventory</button>
+                <button class="nav-btn" onclick="showTab('chat')">💬 R_agent Chat</button>
+                <button class="nav-btn" onclick="showTab('map')">🌍 Global Map</button>
+            </nav>
+            <div class="status-indicator">
+                <span class="pulse green"></span>
+                <span>System Live</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search orders, suppliers or events...">
+                </div>
+                <div class="user-profile">
+                    <span>Procurement Mgr</span>
+                    <div class="p-avatar">PM</div>
+                </div>
+            </header>
+
+            <!-- Metrics Bar -->
+            <section class="metrics-grid" id="metrics-bar">
+                <div class="metric-card clickable" onclick="openDetailPanel('suppliers')">
+                    <label>Active Suppliers</label>
+                    <span id="stat-suppliers">--</span>
+                </div>
+                <div class="metric-card clickable" onclick="openDetailPanel('orders')">
+                    <label>In-Transit Orders</label>
+                    <span id="stat-orders">--</span>
+                </div>
+                <div class="metric-card clickable alert" onclick="openDetailPanel('delayed')">
+                    <label>Delayed Orders</label>
+                    <span id="stat-delayed">--</span>
+                </div>
+                <div class="metric-card clickable" onclick="openDetailPanel('parts')">
+                    <label>Parts in Catalog</label>
+                    <span id="stat-parts">--</span>
+                </div>
+            </section>
+
+            <!-- Audit Tab -->
+            <section id="tab-audit" class="tab-pane active">
+                <div class="pane-header">
+                    <h2>Scientific Risk Audit</h2>
+                    <div class="pane-actions">
+                        <div class="scenario-controls">
+                            <select id="scenario-selector">
+                                <option value="">— Select Scenario —</option>
+                                <option value="suez_blockage">Suez Canal Blockage</option>
+                                <option value="port_strike">Port Strike — Hamburg</option>
+                                <option value="energy_crisis">Energy Crisis — Germany</option>
+                            </select>
+                            <button id="trigger-scenario-btn" class="action-btn warning">⚡ Trigger</button>
+                            <button id="reset-scenario-btn" class="action-btn secondary">🔄 Reset</button>
+                            <span id="scenario-badge" class="scenario-badge" style="display:none">
+                                ⚡ <span id="scenario-name">Scenario</span> Active
+                            </span>
+                        </div>
+                        <button id="run-audit-btn" class="action-btn">🚀 Start Audit</button>
+                    </div>
+                </div>
+
+                <div id="thought-trace" class="thought-trace" style="display:none">
+                    <div class="thought-header" id="thought-header">
+                        <span class="pulse amber"></span>🧠 AI is reasoning...
+                    </div>
+                    <div id="thought-log" class="thought-log"></div>
+                </div>
+                
+                <div id="audit-placeholder" class="placeholder-msg">
+                    Click the button to perform an autonomous AI audit of your supply chain.
+                </div>
+
+                <div id="audit-results" class="markdown-body" style="display: none;">
+                    <!-- AI Findings populate here -->
+                </div>
+            </section>
+
+            <!-- Inventory Tab -->
+            <section id="tab-inventory" class="tab-pane">
+                <h2>Live Inventory Monitor</h2>
+                <div class="table-container">
+                    <table id="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Part #</th>
+                                <th>Warehouse</th>
+                                <th>Stock</th>
+                                <th>Days of Cover</th>
+                                <th>Usage Level</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Chat Tab -->
+            <section id="tab-chat" class="tab-pane">
+                <h2>Chat with R_agent</h2>
+                <div class="chat-container">
+                    <div id="chat-window" class="chat-window">
+                        <div class="msg bot">Hello! I am R_agent. How can I assist your resilience strategy today?</div>
+                    </div>
+                    <div class="chat-input-row">
+                        <input type="text" id="chat-input" placeholder="Ask a question (e.g., Is PO-2024-001 safe?)">
+                        <button id="send-chat-btn">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Global Map Tab -->
+            <section id="tab-map" class="tab-pane">
+                <h2>Global Risk Map</h2>
+                <div id="map-container"></div>
+            </section>
+        </main>
+        </main>
+
+        <!-- Detail Side Panel -->
+        <aside id="detail-panel" class="detail-panel">
+            <div class="panel-header">
+                <h2 id="panel-title">Details</h2>
+                <button id="panel-close" onclick="closeDetailPanel()">✕</button>
+            </div>
+            <div id="panel-content" class="panel-content">
+                <div class="panel-loading">Loading...</div>
+            </div>
+        </aside>
+        <div id="panel-overlay" class="panel-overlay" onclick="closeDetailPanel()"></div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="bg-blur blur-1"></div>
+    <div class="bg-blur blur-2"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
