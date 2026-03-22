@@ -6,7 +6,7 @@ Tests hybrid audit workflow, PO extraction, and phase execution.
 
 import pytest
 from unittest.mock import MagicMock, patch
-from auditing import (
+from agent.auditing import (
     extract_po_ids,
     run_hybrid_audit,
     PHASE_1_INVESTIGATOR_PROMPT,
@@ -88,8 +88,8 @@ class TestPhasePrompts:
 class TestRunHybridAudit:
     """Tests for run_hybrid_audit function."""
 
-    @patch("auditing.tools.get_delayed_orders")
-    @patch("auditing.LLMSwitch")
+    @patch("agent.auditing.tools.get_delayed_orders")
+    @patch("agent.auditing.LLMSwitch")
     def test_no_delayed_orders_returns_healthy(
         self, mock_switch_class, mock_delayed_orders
     ):
@@ -101,8 +101,8 @@ class TestRunHybridAudit:
 
         assert "No risks detected" in result or "healthy" in result.lower()
 
-    @patch("auditing.tools.get_delayed_orders")
-    @patch("auditing.LLMSwitch")
+    @patch("agent.auditing.tools.get_delayed_orders")
+    @patch("agent.auditing.LLMSwitch")
     def test_processes_delayed_orders(self, mock_switch_class, mock_delayed_orders):
         mock_delayed_orders.return_value = """
         | PO-2024-001 | 8 days late |
@@ -111,7 +111,7 @@ class TestRunHybridAudit:
         mock_switch.try_generate.return_value = "Test summary"
         mock_switch_class.return_value = mock_switch
 
-        with patch("auditing.tools.get_db_connection") as mock_conn:
+        with patch("agent.auditing.tools.get_db_connection") as mock_conn:
             mock_row = MagicMock()
             mock_row.__getitem__ = lambda self, key: {
                 "part_number": "AX-7741-B",
@@ -120,28 +120,33 @@ class TestRunHybridAudit:
             mock_conn.return_value.execute.return_value.fetchone.return_value = mock_row
             mock_conn.return_value.close = MagicMock()
 
-            with patch("auditing.tools.get_inventory_status", return_value="Inventory"):
-                with patch("auditing.tools.get_supplier_info", return_value="Supplier"):
+            with patch(
+                "agent.auditing.tools.get_inventory_status", return_value="Inventory"
+            ):
+                with patch(
+                    "agent.auditing.tools.get_supplier_info", return_value="Supplier"
+                ):
                     with patch(
-                        "auditing.tools.calculate_risk_score",
+                        "agent.auditing.tools.calculate_risk_score",
                         return_value="**SCORE:** 75",
                     ):
                         with patch(
-                            "auditing.tools.search_global_events", return_value="Events"
+                            "agent.auditing.tools.search_global_events",
+                            return_value="Events",
                         ):
                             result = run_hybrid_audit()
 
         assert mock_switch.try_generate.called
 
-    @patch("auditing.tools.get_delayed_orders")
-    @patch("auditing.LLMSwitch")
+    @patch("agent.auditing.tools.get_delayed_orders")
+    @patch("agent.auditing.LLMSwitch")
     def test_low_score_po_not_included(self, mock_switch_class, mock_delayed_orders):
         mock_delayed_orders.return_value = "| PO-2024-001 | 1 day |"
         mock_switch = MagicMock()
         mock_switch.try_generate.return_value = "Summary"
         mock_switch_class.return_value = mock_switch
 
-        with patch("auditing.tools.get_db_connection") as mock_conn:
+        with patch("agent.auditing.tools.get_db_connection") as mock_conn:
             mock_row = MagicMock()
             mock_row.__getitem__ = lambda self, key: {
                 "part_number": "AX-7741-B",
@@ -150,14 +155,15 @@ class TestRunHybridAudit:
             mock_conn.return_value.execute.return_value.fetchone.return_value = mock_row
             mock_conn.return_value.close = MagicMock()
 
-            with patch("auditing.tools.get_inventory_status", return_value="I"):
-                with patch("auditing.tools.get_supplier_info", return_value="S"):
+            with patch("agent.auditing.tools.get_inventory_status", return_value="I"):
+                with patch("agent.auditing.tools.get_supplier_info", return_value="S"):
                     with patch(
-                        "auditing.tools.calculate_risk_score",
+                        "agent.auditing.tools.calculate_risk_score",
                         return_value="**SCORE:** 3",
                     ):
                         with patch(
-                            "auditing.tools.search_global_events", return_value="E"
+                            "agent.auditing.tools.search_global_events",
+                            return_value="E",
                         ):
                             result = run_hybrid_audit()
 
@@ -167,8 +173,8 @@ class TestRunHybridAudit:
 class TestHybridAuditEdgeCases:
     """Edge case tests for hybrid audit."""
 
-    @patch("auditing.tools.get_delayed_orders")
-    @patch("auditing.LLMSwitch")
+    @patch("agent.auditing.tools.get_delayed_orders")
+    @patch("agent.auditing.LLMSwitch")
     def test_handles_db_error_gracefully(self, mock_switch_class, mock_delayed_orders):
         mock_delayed_orders.return_value = "No delayed orders"
         mock_switch = MagicMock()
@@ -179,8 +185,8 @@ class TestHybridAuditEdgeCases:
 
         assert result is not None
 
-    @patch("auditing.tools.get_delayed_orders")
-    @patch("auditing.LLMSwitch")
+    @patch("agent.auditing.tools.get_delayed_orders")
+    @patch("agent.auditing.LLMSwitch")
     def test_handles_empty_external_events(
         self, mock_switch_class, mock_delayed_orders
     ):
@@ -189,7 +195,7 @@ class TestHybridAuditEdgeCases:
         mock_switch.try_generate.return_value = "Summary"
         mock_switch_class.return_value = mock_switch
 
-        with patch("auditing.tools.get_db_connection") as mock_conn:
+        with patch("agent.auditing.tools.get_db_connection") as mock_conn:
             mock_row = MagicMock()
             mock_row.__getitem__ = lambda self, key: {
                 "part_number": "PART-1",
@@ -198,21 +204,21 @@ class TestHybridAuditEdgeCases:
             mock_conn.return_value.execute.return_value.fetchone.return_value = mock_row
             mock_conn.return_value.close = MagicMock()
 
-            with patch("auditing.tools.get_inventory_status", return_value="I"):
-                with patch("auditing.tools.get_supplier_info", return_value="S"):
+            with patch("agent.auditing.tools.get_inventory_status", return_value="I"):
+                with patch("agent.auditing.tools.get_supplier_info", return_value="S"):
                     with patch(
-                        "auditing.tools.calculate_risk_score",
+                        "agent.auditing.tools.calculate_risk_score",
                         return_value="**SCORE:** 50",
                     ):
                         with patch(
-                            "auditing.tools.search_global_events", return_value=""
+                            "agent.auditing.tools.search_global_events", return_value=""
                         ):
                             result = run_hybrid_audit()
 
         assert mock_switch.try_generate.called
 
-    @patch("auditing.tools.get_delayed_orders")
-    @patch("auditing.LLMSwitch")
+    @patch("agent.auditing.tools.get_delayed_orders")
+    @patch("agent.auditing.LLMSwitch")
     def test_limits_to_top_5_risk_orders(self, mock_switch_class, mock_delayed_orders):
         pos = "| PO-2024-001 | 10 days |\n| PO-2024-002 | 9 days |\n| PO-2024-003 | 8 days |\n| PO-2024-004 | 7 days |\n| PO-2024-005 | 6 days |\n| PO-2024-006 | 5 days |"
         mock_delayed_orders.return_value = pos
@@ -220,7 +226,7 @@ class TestHybridAuditEdgeCases:
         mock_switch.try_generate.return_value = "Summary"
         mock_switch_class.return_value = mock_switch
 
-        with patch("auditing.tools.get_db_connection") as mock_conn:
+        with patch("agent.auditing.tools.get_db_connection") as mock_conn:
             mock_row = MagicMock()
             mock_row.__getitem__ = lambda self, key: {
                 "part_number": "PART-1",
@@ -229,14 +235,15 @@ class TestHybridAuditEdgeCases:
             mock_conn.return_value.execute.return_value.fetchone.return_value = mock_row
             mock_conn.return_value.close = MagicMock()
 
-            with patch("auditing.tools.get_inventory_status", return_value="I"):
-                with patch("auditing.tools.get_supplier_info", return_value="S"):
+            with patch("agent.auditing.tools.get_inventory_status", return_value="I"):
+                with patch("agent.auditing.tools.get_supplier_info", return_value="S"):
                     with patch(
-                        "auditing.tools.calculate_risk_score",
+                        "agent.auditing.tools.calculate_risk_score",
                         return_value="**SCORE:** 50",
                     ):
                         with patch(
-                            "auditing.tools.search_global_events", return_value="E"
+                            "agent.auditing.tools.search_global_events",
+                            return_value="E",
                         ):
                             result = run_hybrid_audit()
 
@@ -246,8 +253,8 @@ class TestHybridAuditEdgeCases:
 class TestHybridAuditStress:
     """Stress tests for hybrid audit."""
 
-    @patch("auditing.tools.get_delayed_orders")
-    @patch("auditing.LLMSwitch")
+    @patch("agent.auditing.tools.get_delayed_orders")
+    @patch("agent.auditing.LLMSwitch")
     def test_handles_large_number_of_pos(self, mock_switch_class, mock_delayed_orders):
         many_pos = "\n".join(
             [f"| PO-2024-{str(i).zfill(3)} | 5 days |" for i in range(100)]
@@ -257,7 +264,7 @@ class TestHybridAuditStress:
         mock_switch.try_generate.return_value = "Summary"
         mock_switch_class.return_value = mock_switch
 
-        with patch("auditing.tools.get_db_connection") as mock_conn:
+        with patch("agent.auditing.tools.get_db_connection") as mock_conn:
             mock_row = MagicMock()
             mock_row.__getitem__ = lambda self, key: {
                 "part_number": "PART-1",
@@ -266,14 +273,15 @@ class TestHybridAuditStress:
             mock_conn.return_value.execute.return_value.fetchone.return_value = mock_row
             mock_conn.return_value.close = MagicMock()
 
-            with patch("auditing.tools.get_inventory_status", return_value="I"):
-                with patch("auditing.tools.get_supplier_info", return_value="S"):
+            with patch("agent.auditing.tools.get_inventory_status", return_value="I"):
+                with patch("agent.auditing.tools.get_supplier_info", return_value="S"):
                     with patch(
-                        "auditing.tools.calculate_risk_score",
+                        "agent.auditing.tools.calculate_risk_score",
                         return_value="**SCORE:** 50",
                     ):
                         with patch(
-                            "auditing.tools.search_global_events", return_value="E"
+                            "agent.auditing.tools.search_global_events",
+                            return_value="E",
                         ):
                             result = run_hybrid_audit()
 

@@ -208,6 +208,9 @@ class OpenRouterProvider(LLMProvider):
             if not choice.get("tool_calls"):
                 return choice.get("content") or "No content returned."
 
+            if turn + 1 >= MAX_TURNS:
+                return "Loop exceeded max turns."
+
             for call in choice["tool_calls"]:
                 func_name = call["function"]["name"]
 

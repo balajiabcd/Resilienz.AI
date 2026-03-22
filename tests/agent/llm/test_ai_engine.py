@@ -375,16 +375,14 @@ class TestToolCallingLoop:
         result = provider.generate_response("prompt", "system", tools=[dummy_tool])
 
         assert result == "Loop exceeded max turns."
-        assert mock_post.call_count == 10
+        assert mock_post.call_count == 3
 
     @patch("agent.llm.ai_engine.requests.post")
     def test_truncates_large_tool_result(self, mock_post):
         def large_result_tool() -> str:
             return "x" * 10000
 
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_response.json.return_value = {
+        tool_call_response = {
             "choices": [
                 {
                     "message": {
@@ -403,6 +401,20 @@ class TestToolCallingLoop:
                 }
             ]
         }
+        final_response = {
+            "choices": [
+                {
+                    "message": {
+                        "role": "assistant",
+                        "content": "Final summary",
+                    }
+                }
+            ]
+        }
+
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.side_effect = [tool_call_response, final_response]
         mock_post.return_value = mock_response
 
         provider = OpenRouterProvider("key", "model")

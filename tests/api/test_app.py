@@ -12,7 +12,10 @@ from unittest.mock import MagicMock, patch
 @pytest.fixture
 def client():
     """Create test client."""
-    with patch("api.app.RAgent"):
+    with patch("api.app.agent") as mock_agent:
+        mock_agent.run_risk_audit.return_value = "Test report"
+        mock_agent.ask.return_value = "Test response"
+
         with patch("api.app.config") as mock_config:
             mock_config.SQLITE_DB_PATH = ":memory:"
             mock_config.FLASK_HOST = "0.0.0.0"

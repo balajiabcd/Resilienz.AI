@@ -32,3 +32,10 @@ data/*.csv
 
 # ─── Logs (generated, not source code) ───
 logs/
+
+# ─── Demo scripts ────────────────────────
+DE_script.md
+EN_script.md
+
+# ─── LinkedIn posts ────────────────────────
+LinkedIn/

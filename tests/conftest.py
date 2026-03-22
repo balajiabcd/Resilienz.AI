@@ -31,14 +31,17 @@ def pytest_configure(config):
 def pytest_sessionfinish(session, exitstatus):
     status_map = {0: "PASSED", 1: "FAILED", 2: "ERROR", 3: "INTERRUPTED"}
     status = status_map.get(exitstatus, f"UNKNOWN ({exitstatus})")
-    log_with_context(
-        test_logger,
-        "INFO",
-        f"=== TEST RUN COMPLETED ===",
-        run_id=_test_run_id,
-        status=status,
-        exit_code=exitstatus,
-    )
+    try:
+        log_with_context(
+            test_logger,
+            "INFO",
+            f"=== TEST RUN COMPLETED ===",
+            run_id=_test_run_id,
+            status=status,
+            exit_code=exitstatus,
+        )
+    except Exception:
+        pass
 
 
 @pytest.hookimpl(hookwrapper=True)
@@ -46,38 +49,46 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
 
-    if report.when == "call":
-        if report.passed:
-            log_with_context(
-                test_logger,
-                "INFO",
-                f"TEST PASSED",
-                test=item.nodeid,
-                duration=f"{report.duration:.3f}s",
-            )
-        elif report.failed:
+    if not report.passed:
+        return
+
+    try:
+        if report.when == "call":
+            if report.passed:
+                log_with_context(
+                    test_logger,
+                    "INFO",
+                    f"TEST PASSED",
+                    test=item.nodeid,
+                    duration=f"{report.duration:.3f}s",
+                )
+            elif report.failed:
+                log_with_context(
+                    test_logger,
+                    "ERROR",
+                    f"TEST FAILED",
+                    test=item.nodeid,
+                    duration=f"{report.duration:.3f}s",
+                    error=str(report.longrepr)[:200]
+                    if report.longrepr
+                    else "No details",
+                )
+        elif report.when == "setup" and report.failed:
             log_with_context(
                 test_logger,
                 "ERROR",
-                f"TEST FAILED",
+                f"TEST SETUP FAILED",
                 test=item.nodeid,
-                duration=f"{report.duration:.3f}s",
-                error=str(report.longrepr)[:200] if report.longrepr else "No details",
             )
-    elif report.when == "setup" and report.failed:
-        log_with_context(
-            test_logger,
-            "ERROR",
-            f"TEST SETUP FAILED",
-            test=item.nodeid,
-        )
-    elif report.when == "teardown" and report.failed:
-        log_with_context(
-            test_logger,
-            "ERROR",
-            f"TEST TEARDOWN FAILED",
-            test=item.nodeid,
-        )
+        elif report.when == "teardown" and report.failed:
+            log_with_context(
+                test_logger,
+                "ERROR",
+                f"TEST TEARDOWN FAILED",
+                test=item.nodeid,
+            )
+    except Exception:
+        pass
 
 
 @pytest.fixture

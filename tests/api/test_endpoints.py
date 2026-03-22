@@ -14,7 +14,7 @@ class TestMapDataEndpoint:
 
     def test_map_data_returns_valid_structure(self, client):
         """GET /api/map/data returns hub and suppliers keys."""
-        with patch("api.app.get_supplier_coords") as mock_coords:
+        with patch("data.map_data.get_supplier_coords") as mock_coords:
             mock_coords.return_value = [
                 {
                     "supplier_id": "SUP-001",
@@ -29,13 +29,12 @@ class TestMapDataEndpoint:
                     "current_delay_days": 0,
                 }
             ]
-            with patch("data.map_data.get_supplier_coords", mock_coords):
-                response = client.get("/api/map/data")
-                assert response.status_code == 200
-                data = response.get_json()
-                assert "hub" in data
-                assert "suppliers" in data
-                assert isinstance(data["suppliers"], list)
+            response = client.get("/api/map/data")
+            assert response.status_code == 200
+            data = response.get_json()
+            assert "hub" in data
+            assert "suppliers" in data
+            assert isinstance(data["suppliers"], list)
 
     def test_map_data_hub_has_coordinates(self, client):
         """Hub response includes lat/lon."""

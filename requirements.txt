@@ -1,6 +1,10 @@
 # ============================================================
 # Resilienz.AI — Python Dependencies
 # ============================================================
+
+# Testing
+pytest>=8.0.0
+pytest-mock>=3.12.0
 # Core AI & LLM
 google-genai>=0.8.0               # Gemini API (new SDK - migrated from deprecated google-generativeai)
 
