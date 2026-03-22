@@ -39,3 +39,8 @@ EN_script.md
 
 # ─── LinkedIn posts ────────────────────────
 LinkedIn/
+
+# ─── Node.js (for Mermaid CLI) ────────────────────────
+node_modules/
+package-lock.json
+npm-debug.log*

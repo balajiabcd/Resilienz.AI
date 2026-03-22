@@ -117,64 +117,7 @@ Der Agent zeigt nicht nur Informationen. Er:
 
 ## 5. Systemarchitektur
 
-```mermaid
-flowchart TB
-    subgraph Client["Frontend (Dashboard)"]
-        UI[HTML/CSS/JS Dashboard]
-        Map[Leaflet.js Karte]
-        SSE[Thought-Trace Stream]
-    end
-
-    subgraph Backend["API Schicht (Flask)"]
-        API[Flask Server]
-        SSE_Push[SSE Event Pusher]
-        Scenarios[Szenario-Engine]
-    end
-
-    subgraph Agent["KI-Agent Kern"]
-        Brain[RAgent Orchestrator]
-        Prompts[Prompt Engineering]
-        LLMSwitch[Modell-agnostischer Switch]
-        
-        subgraph Tools["Agenten-Werkzeuge (Python Funktionen)"]
-            DB_Tools[SQLite Abfragen]
-            Vector_Tools[ChromaDB Semantische Suche]
-            Alert_Tools[E-Mail/PDF Alerts]
-        end
-    end
-
-    subgraph DataLayer["Datenschicht"]
-        SQLite[(SQLite: Bestellungen, Lieferanten, Lager)]
-        ChromaDB[(ChromaDB: Globale Ereignisse)]
-        Config[Konfiguration (.env)]
-    end
-
-    subgraph LLMProviders["LLM Anbieter"]
-        OR[OpenRouter (20+ Modelle)]
-        Gemini[Google Gemini]
-        Llama[Meta Llama]
-        DeepSeek[DeepSeek R1]
-    end
-
-    UI -->|REST API| API
-    Map -->|GET /map/data| API
-    API --> Brain
-    Brain --> LLMSwitch
-    Brain -->|Werkzeugaufrufe| Tools
-    
-    Tools -->|SQL Abfragen| SQLite
-    Tools -->|Semantische Suche| ChromaDB
-    
-    LLMSwitch -->|API Aufrufe| OR
-    OR -->|Failover| Gemini
-    OR -->|Failover| Llama
-    
-    API -->|SSE Stream| SSE_Push
-    SSE_Push -->|Server-Sent Events| UI
-    
-    Scenarios -->|Verzögerungen ändern| SQLite
-    Scenarios -->|Ereignisse hinzufügen| ChromaDB
-```
+![System Architecture](images/architecture.png)
 
 ### Datenfluss-Architektur
 
@@ -224,56 +167,7 @@ flowchart TB
 
 Resilienz.AI nutzt einen verbesserten autonomen Agentenloop. Er basiert auf ReAct-Mustern (Reason + Act) mit zusätzlichen Reflexionszyklen:
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Agent as RAgent
-    participant LLM as LLMSwitch
-    participant Tools as Werkzeugschicht
-    
-    User->>Agent: trigger_risk_audit()
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 1: Erkennung
-        Agent->>Tools: get_delayed_orders()
-        Tools-->>Agent: [Bestelliste]
-        Agent->>LLM: Filtern und Priorisieren
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 2-4: Datenaggregation
-        loop Für jede risikoreiche Bestellung
-            Agent->>Tools: get_inventory_status()
-            Agent->>Tools: get_supplier_info()
-            Agent->>Tools: calculate_risk_score()
-            Agent->>Tools: search_global_events()
-        end
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 5: LLM Untersuchung
-        loop Für priorisierte Bestellungen
-            Agent->>LLM: Risiko zusammenfassen (optimierter Kontext)
-            LLM-->>Agent: 2-Satz-Analyse
-        end
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 6: Synthese
-        Agent->>LLM: Zusammenfassungen kombinieren
-        LLM-->>Agent: Executive Bericht
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 7: Aktion
-        alt Risikowert ≥ 70
-            Agent->>Tools: send_risk_alert()
-            Tools-->>Agent: PDF + E-Mail gesendet
-        end
-    end
-    
-    Agent-->>User: Finaler Bericht + Thought-Trace
-```
+![Agent Flow](images/agent-flow.png)
 
 ### Deterministisch vs LLM Aufteilung
 
@@ -368,33 +262,7 @@ Dies ist eine besondere Funktion. Sie ermöglicht **risikofreie Entscheidungsunt
 
 ### Wie Simulationen funktionieren
 
-```mermaid
-flowchart LR
-    subgraph Trigger["Benutzer löst Szenario aus"]
-        Select[Auswahl aus Dropdown]
-        Click["Trigger" klicken]
-    end
-    
-    subgraph Apply["In-Memory Anwendungen"]
-        DB[(SQLite)]
-        VDB[(ChromaDB)]
-        
-        Select -->|Szenario-ID| API
-        API -->|Verzögerungs-modifikator| DB[Verzögerungen anwenden]
-        API -->|Ereignis hinzufügen| VDB[Szenario-Ereignis einfügen]
-    end
-    
-    subgraph Observe["Dashboard-Updates"]
-        Map[Karte aktualisiert]
-        Stats[Metriken aktualisiert]
-        Alert[Szenario-Badge]
-    end
-    
-    DB --> Map
-    VDB --> Map
-    DB --> Stats
-    DB --> Alert
-```
+![Simulation Flow](images/simulation.png)
 
 ### Warum ist das wichtig?
 

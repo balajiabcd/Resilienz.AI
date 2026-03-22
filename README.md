@@ -117,64 +117,7 @@ The agent doesn't just display information. It:
 
 ## 5. System Architecture
 
-```mermaid
-flowchart TB
-    subgraph Client["Frontend (Dashboard)"]
-        UI[HTML/CSS/JS Dashboard]
-        Map[Leaflet.js Map]
-        SSE[Thought-Trace Stream]
-    end
-
-    subgraph Backend["API Layer (Flask)"]
-        API[Flask Server]
-        SSE_Push[SSE Event Pusher]
-        Scenarios[Scenario Engine]
-    end
-
-    subgraph Agent["AI Agent Core"]
-        Brain[RAgent Orchestrator]
-        Prompts[Prompt Engineering]
-        LLMSwitch[Model-Agnostic Switch]
-        
-        subgraph Tools["Agent Tools (Python Functions)"]
-            DB_Tools[SQLite Queries]
-            Vector_Tools[ChromaDB Semantic Search]
-            Alert_Tools[Email/PDF Alerts]
-        end
-    end
-
-    subgraph DataLayer["Data Layer"]
-        SQLite[(SQLite: Orders, Suppliers, Inventory)]
-        ChromaDB[(ChromaDB: Global Events)]
-        Config[Configuration (.env)]
-    end
-
-    subgraph LLMProviders["LLM Providers"]
-        OR[OpenRouter (20+ Models)]
-        Gemini[Google Gemini]
-        Llama[Meta Llama]
-        DeepSeek[DeepSeek R1]
-    end
-
-    UI -->|REST API| API
-    Map -->|GET /map/data| API
-    API --> Brain
-    Brain --> LLMSwitch
-    Brain -->|Tool Calls| Tools
-    
-    Tools -->|SQL Queries| SQLite
-    Tools -->|Semantic Search| ChromaDB
-    
-    LLMSwitch -->|API Calls| OR
-    OR -->|Failover| Gemini
-    OR -->|Failover| Llama
-    
-    API -->|SSE Stream| SSE_Push
-    SSE_Push -->|Server-Sent Events| UI
-    
-    Scenarios -->|Override Delays| SQLite
-    Scenarios -->|Inject Events| ChromaDB
-```
+![System Architecture](images/architecture.png)
 
 ### Data Flow Architecture
 
@@ -224,56 +167,7 @@ flowchart TB
 
 Resilienz.AI implements a refined autonomous agent loop inspired by ReAct (Reason + Act) patterns with additional reflection cycles:
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Agent as RAgent
-    participant LLM as LLMSwitch
-    participant Tools as Tool Layer
-    
-    User->>Agent: trigger_risk_audit()
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 1: Detection
-        Agent->>Tools: get_delayed_orders()
-        Tools-->>Agent: [Order List]
-        Agent->>LLM: Filter & Prioritise
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 2-4: Data Aggregation
-        loop For each high-risk order
-            Agent->>Tools: get_inventory_status()
-            Agent->>Tools: get_supplier_info()
-            Agent->>Tools: calculate_risk_score()
-            Agent->>Tools: search_global_events()
-        end
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 5: LLM Investigation
-        loop For prioritised orders
-            Agent->>LLM: Summarise risk (optimised context)
-            LLM-->>Agent: 2-sentence analysis
-        end
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 6: Synthesis
-        Agent->>LLM: Combine summaries
-        LLM-->>Agent: Executive Report
-    end
-    
-    rect rgb(40, 44, 52)
-        Note over Agent,LLM: PHASE 7: Action
-        alt Risk Score ≥ 70
-            Agent->>Tools: send_risk_alert()
-            Tools-->>Agent: PDF + Email sent
-        end
-    end
-    
-    Agent-->>User: Final Report + Thought-Trace
-```
+![Agent Flow](images/agent-flow.png)
 
 ### Deterministic vs LLM Split
 
@@ -368,33 +262,7 @@ A standout feature enabling **zero-risk decision support** through scenario plan
 
 ### How Simulations Work
 
-```mermaid
-flowchart LR
-    subgraph Trigger["User Triggers Scenario"]
-        Select[Select from Dropdown]
-        Click[Click "Trigger"]
-    end
-    
-    subgraph Apply["In-Memory Application"]
-        DB[(SQLite)]
-        VDB[(ChromaDB)]
-        
-        Select -->|scenario_id| API
-        API -->|delay_modifier| DB[Apply Delay Overrides]
-        API -->|inject_event| VDB[Add Scenario Event]
-    end
-    
-    subgraph Observe["Dashboard Updates"]
-        Map[Risk Map Recolor]
-        Stats[Metrics Update]
-        Alert[Scenario Badge]
-    end
-    
-    DB --> Map
-    VDB --> Map
-    DB --> Stats
-    DB --> Alert
-```
+![Simulation Flow](images/simulation.png)
 
 ### Why It Matters
 

@@ -1,0 +1,71 @@
+%%{init: {
+  'theme': 'dark',
+  'themeVariables': {
+    'primaryColor': '#4f46e5',
+    'primaryTextColor': '#fff',
+    'primaryBorderColor': '#818cf8',
+    'lineColor': '#94a3b8',
+    'secondaryColor': '#1e293b',
+    'tertiaryColor': '#0f172a',
+    'background': '#0f172a',
+    'mainBkg': '#1e293b',
+    'nodeBorder': '#818cf8',
+    'titleColor': '#f1f5f9',
+    'noteBkgColor': '#312e81',
+    'noteTextColor': '#fff',
+    'actorBkg': '#1e293b',
+    'actorBorder': '#818cf8',
+    'actorTextColor': '#fff',
+    'signalColor': '#2dd4bf',
+    'signalTextColor': '#fff'
+  }
+}}%%
+
+sequenceDiagram
+    participant User
+    participant Agent as RAgent
+    participant LLM as LLMSwitch
+    participant Tools as Tool Layer
+    
+    User->>Agent: trigger_risk_audit()
+    
+    rect rgb(50, 40, 100)
+        Note over Agent,LLM: 🔍 PHASE 1: Detection
+        Agent->>Tools: get_delayed_orders()
+        Tools-->>Agent: [Order List]
+        Agent->>LLM: Filter & Prioritise
+    end
+    
+    rect rgb(40, 70, 50)
+        Note over Agent,LLM: 📊 PHASE 2-4: Data Aggregation
+        loop For each high-risk order
+            Agent->>Tools: get_inventory_status()
+            Agent->>Tools: get_supplier_info()
+            Agent->>Tools: calculate_risk_score()
+            Agent->>Tools: search_global_events()
+        end
+    end
+    
+    rect rgb(70, 40, 50)
+        Note over Agent,LLM: 🧠 PHASE 5: LLM Investigation
+        loop For prioritised orders
+            Agent->>LLM: Summarise risk
+            LLM-->>Agent: 2-sentence analysis
+        end
+    end
+    
+    rect rgb(50, 60, 80)
+        Note over Agent,LLM: 📝 PHASE 6: Synthesis
+        Agent->>LLM: Combine summaries
+        LLM-->>Agent: Executive Report
+    end
+    
+    rect rgb(100, 40, 40)
+        Note over Agent,LLM: 🚨 PHASE 7: Action
+        alt Risk Score ≥ 70
+            Agent->>Tools: send_risk_alert()
+            Tools-->>Agent: PDF + Email sent
+        end
+    end
+    
+    Agent-->>User: Final Report + Thought-Trace
