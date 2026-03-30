@@ -98,6 +98,8 @@ Der Agent zeigt nicht nur Informationen. Er:
 | **Think-Act-Loop Architektur** | Autonomer Agent durchläuft Denken → Planen → Handeln → Beobachten → Reflektieren          |
 | **Szenario-Simulation**        | Risikofreie Speichertests für geopolitische Krisen, Hafenarbeiterstreiks und Energiekrisen    |
 
+![Audit Feature](images/1_audit.png)
+
 ### Transparenz-Schicht
 
 | Funktion                       | Beschreibung                                                                             |
@@ -391,6 +393,8 @@ python api/app.py
 2. **„🚀 Audit starten"** im Risikoaudit-Panel klicken
 3. Den **KI Thought-Trace** in Echtzeit beobachten
 4. Den generierten **Executive Bericht** lesen
+
+![Inventory Dashboard](images/2_inventory.png)
 
 ### Mit dem Agenten sprechen
 

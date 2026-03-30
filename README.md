@@ -108,6 +108,8 @@ The agent doesn't just display information. It:
 | **Think-Act-Loop Architecture** | Autonomous agent cycles through Think → Plan → Act → Observe → Reflect using LLM-guided tool selection |
 | **Scenario Simulation**         | Zero-risk in-memory stress testing for geopolitical crises, port strikes, and energy disruptions           |
 
+![Audit Feature](images/1_audit.png)
+
 ### Transparency Layer
 
 | Feature                       | Description                                                                         |
@@ -401,6 +403,8 @@ python api/app.py
 2. Click **"🚀 Start Audit"** in the Risk Audit panel
 3. Watch the **AI Thought-Trace** stream in real-time
 4. Review the generated **Executive Report**
+
+![Inventory Dashboard](images/2_inventory.png)
 
 ### Interacting with the Agent
 
