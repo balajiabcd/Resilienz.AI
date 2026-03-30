@@ -1,3 +1,13 @@
+## Business Case
+
+A German manufacturing SME imports electronic components from suppliers in Asia. One of the suppliers is affected by a port strike and shipment delays increase from 4 to 12 days. The procurement team only notices the issue after production inventory falls below the safe level.
+
+Resilienz.AI continuously monitors supplier routes, logistics news, and inventory buffers. The platform detects the disruption early, explains the reason, and estimates the impact on production. It then recommends an alternative supplier and simulates the effect of switching.
+
+As a result, the company can avoid production downtime, reduce emergency procurement costs, and react several days earlier than with traditional monitoring.
+
+---
+
 # Resilienz.AI — Autonomous Supply Chain Resilience Platform
 
 > **Production-inspired AI Agent System for Supply Chain Risk Management**
@@ -17,7 +27,7 @@ python api/app.py
 # 4. Watch AI reasoning stream in real-time
 ```
 
-👉 **Demo Video**: [Add your Loom/YouTube link here]
+👉 **Demo Video**: [need to add youtube demo link]
 
 ---
 
@@ -45,13 +55,13 @@ Resilienz.AI employs a specialised AI agent that continuously monitors purchase 
 
 ### What Makes It Different
 
-| Traditional Approach | Resilienz.AI |
-|---------------------|--------------|
-| Periodic manual reviews | Continuous autonomous monitoring |
-| Black-box AI decisions | Full thought-trace transparency |
-| Reactive problem-solving | Proactive risk detection |
-| Single LLM dependency | Multi-model resilient architecture |
-| Single data source | Hybrid SQLite + Vector DB strategy |
+| Traditional Approach     | Resilienz.AI                       |
+| ------------------------ | ---------------------------------- |
+| Periodic manual reviews  | Continuous autonomous monitoring   |
+| Black-box AI decisions   | Full thought-trace transparency    |
+| Reactive problem-solving | Proactive risk detection           |
+| Single LLM dependency    | Multi-model resilient architecture |
+| Single data source       | Hybrid SQLite + Vector DB strategy |
 
 ---
 
@@ -59,16 +69,17 @@ Resilienz.AI employs a specialised AI agent that continuously monitors purchase 
 
 Traditional dashboards show data. Resilienz.AI acts on it.
 
-| Dashboard Analytics | Resilienz.AI Agent |
-|--------------------|-------------------|
-| Shows raw data | Detects risks automatically |
+| Dashboard Analytics           | Resilienz.AI Agent                |
+| ----------------------------- | --------------------------------- |
+| Shows raw data                | Detects risks automatically       |
 | Requires human interpretation | Investigates causes automatically |
-| Static filters and alerts | Recommends specific actions |
-| Passive display | Executes alerts when risk ≥ 70 |
+| Static filters and alerts     | Recommends specific actions       |
+| Passive display               | Executes alerts when risk ≥ 70   |
 
 **The shift**: Passive analytics → Active decision support system
 
 The agent doesn't just display information. It:
+
 1. Continuously monitors supply chain state
 2. Investigates anomalies autonomously
 3. Calculates risk using deterministic + LLM reasoning
@@ -78,12 +89,12 @@ The agent doesn't just display information. It:
 
 ## 3. Autonomy Model
 
-| Aspect | Implementation |
-|--------|----------------|
-| **Trigger Mode** | Manual (via UI) + Ready for scheduled execution (cron-ready endpoint) |
-| **Decision Making** | Fully automated risk evaluation |
-| **Actions** | Alerting + recommendations (auto-escalation for risk score ≥ 70) |
-| **Human Override** | Always possible via thought-trace visibility |
+| Aspect                    | Implementation                                                        |
+| ------------------------- | --------------------------------------------------------------------- |
+| **Trigger Mode**    | Manual (via UI) + Ready for scheduled execution (cron-ready endpoint) |
+| **Decision Making** | Fully automated risk evaluation                                       |
+| **Actions**         | Alerting + recommendations (auto-escalation for risk score ≥ 70)     |
+| **Human Override**  | Always possible via thought-trace visibility                          |
 
 ---
 
@@ -91,27 +102,27 @@ The agent doesn't just display information. It:
 
 ### Intelligence Layer
 
-| Feature | Description |
-|---------|-------------|
-| **Real-Time Risk Detection** | Monitors 50+ purchase orders against supplier status, inventory buffers, and global disruption signals |
+| Feature                               | Description                                                                                                |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Real-Time Risk Detection**    | Monitors 50+ purchase orders against supplier status, inventory buffers, and global disruption signals     |
 | **Think-Act-Loop Architecture** | Autonomous agent cycles through Think → Plan → Act → Observe → Reflect using LLM-guided tool selection |
-| **Scenario Simulation** | Zero-risk in-memory stress testing for geopolitical crises, port strikes, and energy disruptions |
+| **Scenario Simulation**         | Zero-risk in-memory stress testing for geopolitical crises, port strikes, and energy disruptions           |
 
 ### Transparency Layer
 
-| Feature | Description |
-|---------|-------------|
-| **AI Thought-Trace** | Real-time streaming of the agent's internal reasoning via Server-Sent Events (SSE) |
+| Feature                       | Description                                                                         |
+| ----------------------------- | ----------------------------------------------------------------------------------- |
+| **AI Thought-Trace**    | Real-time streaming of the agent's internal reasoning via Server-Sent Events (SSE)  |
 | **Explainable Outputs** | Every risk finding includes the data sources, scoring factors, and confidence level |
-| **Audit Trail** | Complete logging of agent decisions for compliance and review |
+| **Audit Trail**         | Complete logging of agent decisions for compliance and review                       |
 
 ### Visualisation Layer
 
-| Feature | Description |
-|---------|-------------|
-| **Global Risk Map** | Interactive Leaflet.js map visualising supplier locations, shipping routes, and risk hotspots |
-| **Route Tracking** | Visual connection of factory hub to supplier locations with delay indicators |
-| **Scenario Dashboards** | Real-time dashboard updates when stress-test scenarios are activated |
+| Feature                       | Description                                                                                   |
+| ----------------------------- | --------------------------------------------------------------------------------------------- |
+| **Global Risk Map**     | Interactive Leaflet.js map visualising supplier locations, shipping routes, and risk hotspots |
+| **Route Tracking**      | Visual connection of factory hub to supplier locations with delay indicators                  |
+| **Scenario Dashboards** | Real-time dashboard updates when stress-test scenarios are activated                          |
 
 ---
 
@@ -125,15 +136,15 @@ The agent doesn't just display information. It:
 
 ### Component Responsibilities
 
-| Component | Responsibility | Technology |
-|-----------|----------------|------------|
-| **RAgent (Brain)** | Orchestrates reasoning loop, tool selection, and response synthesis | Python 3.11+ |
-| **LLMSwitch** | Model-agnostic LLM routing with automatic failover and error handling | OpenRouter SDK |
-| **Tool Layer** | Python functions callable by LLM for data retrieval and actions | SQLite, ChromaDB |
-| **Auditing Module** | Hybrid audit logic: deterministic Python + LLM reasoning phases | Python + LLM |
-| **API Server** | REST endpoints, SSE streaming, scenario management | Flask + Flask-CORS |
-| **Dashboard** | Glassmorphism UI, interactive map, thought-trace display | Vanilla JS + Leaflet.js |
-| **Data Layer** | Structured facts (SQLite) + Semantic context (Vector DB) | SQLite, ChromaDB |
+| Component                 | Responsibility                                                        | Technology              |
+| ------------------------- | --------------------------------------------------------------------- | ----------------------- |
+| **RAgent (Brain)**  | Orchestrates reasoning loop, tool selection, and response synthesis   | Python 3.11+            |
+| **LLMSwitch**       | Model-agnostic LLM routing with automatic failover and error handling | OpenRouter SDK          |
+| **Tool Layer**      | Python functions callable by LLM for data retrieval and actions       | SQLite, ChromaDB        |
+| **Auditing Module** | Hybrid audit logic: deterministic Python + LLM reasoning phases       | Python + LLM            |
+| **API Server**      | REST endpoints, SSE streaming, scenario management                    | Flask + Flask-CORS      |
+| **Dashboard**       | Glassmorphism UI, interactive map, thought-trace display              | Vanilla JS + Leaflet.js |
+| **Data Layer**      | Structured facts (SQLite) + Semantic context (Vector DB)              | SQLite, ChromaDB        |
 
 ---
 
@@ -147,15 +158,15 @@ Resilienz.AI implements a refined autonomous agent loop inspired by ReAct (Reaso
 
 ### Deterministic vs LLM Split
 
-| What | Who Does It | Why |
-|------|-------------|-----|
-| Risk scoring (0-100) | **Deterministic** Python | Mathematically precise, no hallucination risk |
-| Delay calculation | **Deterministic** Python | Exact numbers required |
-| Inventory threshold checks | **Deterministic** Python | Boolean logic, no ambiguity |
-| Risk explanation | **LLM** | Natural language generation |
-| Prioritisation refinement | **LLM** | Context-aware ordering |
-| Report generation | **LLM** | Professional formatting |
-| Global event relevance | **LLM + Vector DB** | Semantic understanding |
+| What                       | Who Does It                    | Why                                           |
+| -------------------------- | ------------------------------ | --------------------------------------------- |
+| Risk scoring (0-100)       | **Deterministic** Python | Mathematically precise, no hallucination risk |
+| Delay calculation          | **Deterministic** Python | Exact numbers required                        |
+| Inventory threshold checks | **Deterministic** Python | Boolean logic, no ambiguity                   |
+| Risk explanation           | **LLM**                  | Natural language generation                   |
+| Prioritisation refinement  | **LLM**                  | Context-aware ordering                        |
+| Report generation          | **LLM**                  | Professional formatting                       |
+| Global event relevance     | **LLM + Vector DB**      | Semantic understanding                        |
 
 ### Prompt Engineering Strategy
 
@@ -177,29 +188,29 @@ The agent uses an **optimised prompt architecture** with efficient token managem
 
 ### Data Source Tools
 
-| Tool | Data Source | Use Case |
-|------|-------------|----------|
-| `get_delayed_orders()` | SQLite | Identify orders with delivery delays |
-| `get_inventory_status()` | SQLite | Check warehouse stock and days-of-cover |
-| `get_supplier_info()` | SQLite | Retrieve supplier reliability scores |
-| `search_global_events()` | ChromaDB | Semantic search for external disruptions |
+| Tool                       | Data Source | Use Case                                 |
+| -------------------------- | ----------- | ---------------------------------------- |
+| `get_delayed_orders()`   | SQLite      | Identify orders with delivery delays     |
+| `get_inventory_status()` | SQLite      | Check warehouse stock and days-of-cover  |
+| `get_supplier_info()`    | SQLite      | Retrieve supplier reliability scores     |
+| `search_global_events()` | ChromaDB    | Semantic search for external disruptions |
 
 ### Action Tools
 
-| Tool | Target | Use Case |
-|------|--------|----------|
-| `calculate_risk_score()` | Internal Logic | Deterministic risk scoring (0-100) |
-| `get_alternative_supplier()` | SQLite | Find backup suppliers for critical parts |
-| `send_risk_alert()` | Email + PDF | Automated alert with mitigation plan |
+| Tool                           | Target         | Use Case                                 |
+| ------------------------------ | -------------- | ---------------------------------------- |
+| `calculate_risk_score()`     | Internal Logic | Deterministic risk scoring (0-100)       |
+| `get_alternative_supplier()` | SQLite         | Find backup suppliers for critical parts |
+| `send_risk_alert()`          | Email + PDF    | Automated alert with mitigation plan     |
 
 ### External Integrations
 
-| Integration | Technology | Purpose |
-|------------|------------|---------|
-| **Mapping** | Leaflet.js + CARTO | Global supplier visualisation |
-| **LLM Gateway** | OpenRouter API | Multi-model inference with failover |
-| **Email** | SMTP (Gmail) | Alert notifications |
-| **PDF Generation** | fpdf2 | Risk report generation |
+| Integration              | Technology         | Purpose                             |
+| ------------------------ | ------------------ | ----------------------------------- |
+| **Mapping**        | Leaflet.js + CARTO | Global supplier visualisation       |
+| **LLM Gateway**    | OpenRouter API     | Multi-model inference with failover |
+| **Email**          | SMTP (Gmail)       | Alert notifications                 |
+| **PDF Generation** | fpdf2              | Risk report generation              |
 
 ---
 
@@ -209,11 +220,11 @@ A standout feature enabling **zero-risk decision support** through scenario plan
 
 ### Available Scenarios
 
-| Scenario | Description | Affected Regions | Delay Impact |
-|----------|-------------|------------------|--------------|
-| **Suez Canal Blockage** | Simulated Red Sea crisis forcing rerouting around Cape of Good Hope | Japan, China, South Korea | +10-14 days |
-| **Hamburg Port Strike** | Simulated dockworkers' strike at Germany's largest port | Germany, Netherlands, Belgium | +7 days |
-| **Energy Crisis** | Simulated nationwide energy shortage reducing industrial output | Germany | +4 days |
+| Scenario                      | Description                                                         | Affected Regions              | Delay Impact |
+| ----------------------------- | ------------------------------------------------------------------- | ----------------------------- | ------------ |
+| **Suez Canal Blockage** | Simulated Red Sea crisis forcing rerouting around Cape of Good Hope | Japan, China, South Korea     | +10-14 days  |
+| **Hamburg Port Strike** | Simulated dockworkers' strike at Germany's largest port             | Germany, Netherlands, Belgium | +7 days      |
+| **Energy Crisis**       | Simulated nationwide energy shortage reducing industrial output     | Germany                       | +4 days      |
 
 ### How Simulations Work
 
@@ -261,13 +272,13 @@ eventSource.onmessage = (e) => {
 
 ## 10. Design Trade-offs
 
-| Decision | Chosen | Rationale |
-|----------|--------|-----------|
-| **SQLite vs PostgreSQL** | SQLite | Simplicity and portability for demo; no external DB server needed |
-| **SSE vs WebSockets** | SSE | Simplicity and unidirectional streaming; sufficient for thought-trace |
-| **Multi-model vs single model** | Multi-model via OpenRouter | Resilience over consistency; failover prevents deadlocks |
-| **Python LLM tools vs LangChain** | Custom implementation | Full control, lighter footprint, better learning experience |
-| **In-memory scenarios vs persistent** | In-memory overrides | Zero-risk testing without touching production data |
+| Decision                                    | Chosen                     | Rationale                                                             |
+| ------------------------------------------- | -------------------------- | --------------------------------------------------------------------- |
+| **SQLite vs PostgreSQL**              | SQLite                     | Simplicity and portability for demo; no external DB server needed     |
+| **SSE vs WebSockets**                 | SSE                        | Simplicity and unidirectional streaming; sufficient for thought-trace |
+| **Multi-model vs single model**       | Multi-model via OpenRouter | Resilience over consistency; failover prevents deadlocks              |
+| **Python LLM tools vs LangChain**     | Custom implementation      | Full control, lighter footprint, better learning experience           |
+| **In-memory scenarios vs persistent** | In-memory overrides        | Zero-risk testing without touching production data                    |
 
 ---
 
@@ -288,49 +299,49 @@ The demo uses **deterministically generated data** to ensure reproducibility:
 
 ### Backend
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| **Runtime** | Python | 3.11+ |
-| **Web Framework** | Flask | 3.0+ |
-| **Database (Structured)** | SQLite | 3.x |
-| **Database (Vector)** | ChromaDB | 0.4+ |
-| **LLM Gateway** | OpenRouter | API |
-| **PDF Generation** | fpdf2 | 2.7+ |
-| **Configuration** | python-dotenv | 1.0+ |
+| Component                       | Technology    | Version |
+| ------------------------------- | ------------- | ------- |
+| **Runtime**               | Python        | 3.11+   |
+| **Web Framework**         | Flask         | 3.0+    |
+| **Database (Structured)** | SQLite        | 3.x     |
+| **Database (Vector)**     | ChromaDB      | 0.4+    |
+| **LLM Gateway**           | OpenRouter    | API     |
+| **PDF Generation**        | fpdf2         | 2.7+    |
+| **Configuration**         | python-dotenv | 1.0+    |
 
 ### Frontend
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| **UI Framework** | Vanilla JS | ES6+ |
-| **Mapping** | Leaflet.js | 1.9+ |
-| **Map Tiles** | CARTO Dark Matter | - |
-| **Styling** | Custom CSS (Glassmorphism) | - |
-| **Streaming** | Server-Sent Events | Native |
+| Component              | Technology                 | Version |
+| ---------------------- | -------------------------- | ------- |
+| **UI Framework** | Vanilla JS                 | ES6+    |
+| **Mapping**      | Leaflet.js                 | 1.9+    |
+| **Map Tiles**    | CARTO Dark Matter          | -       |
+| **Styling**      | Custom CSS (Glassmorphism) | -       |
+| **Streaming**    | Server-Sent Events         | Native  |
 
 ### AI/ML
 
-| Component | Technology | Notes |
-|-----------|------------|-------|
-| **Primary Models** | OpenRouter Aggregated | 20+ free models |
-| **Model Switch** | Custom LLMSwitch | Auto-failover |
-| **Benchmark Models** | Gemini 2.0 Flash, Llama 3.3, DeepSeek R1 | tested |
+| Component                  | Technology                               | Notes           |
+| -------------------------- | ---------------------------------------- | --------------- |
+| **Primary Models**   | OpenRouter Aggregated                    | 20+ free models |
+| **Model Switch**     | Custom LLMSwitch                         | Auto-failover   |
+| **Benchmark Models** | Gemini 2.0 Flash, Llama 3.3, DeepSeek R1 | tested          |
 
 ---
 
 ## 13. Key API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/agent/audit` | Trigger autonomous risk audit |
-| `POST` | `/api/agent/chat` | Query agent with natural language |
-| `GET` | `/api/stream/thoughts` | SSE stream of agent reasoning |
-| `GET` | `/api/map/data` | Geographic supplier data |
-| `POST` | `/api/scenario/trigger` | Activate stress-test scenario |
-| `POST` | `/api/scenario/reset` | Reset scenario to baseline |
-| `GET` | `/api/dashboard/summary` | Summary metrics |
-| `GET` | `/api/orders/delayed` | Delayed orders list |
-| `GET` | `/api/inventory` | Current inventory levels |
+| Method   | Endpoint                   | Description                       |
+| -------- | -------------------------- | --------------------------------- |
+| `POST` | `/api/agent/audit`       | Trigger autonomous risk audit     |
+| `POST` | `/api/agent/chat`        | Query agent with natural language |
+| `GET`  | `/api/stream/thoughts`   | SSE stream of agent reasoning     |
+| `GET`  | `/api/map/data`          | Geographic supplier data          |
+| `POST` | `/api/scenario/trigger`  | Activate stress-test scenario     |
+| `POST` | `/api/scenario/reset`    | Reset scenario to baseline        |
+| `GET`  | `/api/dashboard/summary` | Summary metrics                   |
+| `GET`  | `/api/orders/delayed`    | Delayed orders list               |
+| `GET`  | `/api/inventory`         | Current inventory levels          |
 
 ---
 
@@ -373,12 +384,12 @@ python api/app.py
 
 ### Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `OPENROUTER_API_KEY` | Yes | API key from openrouter.ai |
-| `ALERT_EMAIL_FROM` | No | Sender email (default: agent@resilienz.ai) |
-| `ALERT_EMAIL_TO` | No | Recipient email (default: procurement@company.de) |
-| `SMTP_PASSWORD` | No | App password for Gmail SMTP |
+| Variable               | Required | Description                                       |
+| ---------------------- | -------- | ------------------------------------------------- |
+| `OPENROUTER_API_KEY` | Yes      | API key from openrouter.ai                        |
+| `ALERT_EMAIL_FROM`   | No       | Sender email (default: agent@resilienz.ai)        |
+| `ALERT_EMAIL_TO`     | No       | Recipient email (default: procurement@company.de) |
+| `SMTP_PASSWORD`      | No       | App password for Gmail SMTP                       |
 
 ---
 
@@ -402,10 +413,10 @@ python api/app.py
 1. Select a scenario from the dropdown (e.g., "Suez Canal Blockage")
 2. Click **"⚡ Trigger"**
 3. Observe:
+
    - Map markers turn orange/red
    - Affected suppliers display delay overrides
    - Dashboard metrics update
-
 4. Click **"🔄 Reset"** to return to baseline
 
 ---
@@ -461,11 +472,11 @@ The supply chain shows **elevated risk** due to:
 
 ### System Metrics
 
-| Metric | Value | Notes |
-|--------|-------|-------|
-| **Audit Completion** | ~8-15 seconds | Depends on LLM response time |
-| **SSE Latency** | <100ms | Browser-native streaming |
-| **Database Queries** | 5-12 per audit | Deterministic Python-only |
+| Metric                     | Value          | Notes                        |
+| -------------------------- | -------------- | ---------------------------- |
+| **Audit Completion** | ~8-15 seconds  | Depends on LLM response time |
+| **SSE Latency**      | <100ms         | Browser-native streaming     |
+| **Database Queries** | 5-12 per audit | Deterministic Python-only    |
 
 ### Accuracy Characteristics
 
@@ -477,15 +488,16 @@ The hybrid architecture ensures:
 
 ### Known Failure Cases
 
-| Failure | Cause | Mitigation |
-|---------|-------|------------|
-| Incorrect prioritisation | Missing supplier data in context | Increase context window or add fallback data source |
-| LLM overgeneralisation | Model generates plausible but wrong cause | Deterministic scoring provides grounding |
-| Scenario injection fails | ChromaDB unavailable | Graceful degradation, scenario still applies to SQLite |
+| Failure                  | Cause                                     | Mitigation                                             |
+| ------------------------ | ----------------------------------------- | ------------------------------------------------------ |
+| Incorrect prioritisation | Missing supplier data in context          | Increase context window or add fallback data source    |
+| LLM overgeneralisation   | Model generates plausible but wrong cause | Deterministic scoring provides grounding               |
+| Scenario injection fails | ChromaDB unavailable                      | Graceful degradation, scenario still applies to SQLite |
 
 ### Test Case
 
 > **Scenario**: TechParts GmbH delivery delayed by 12 days
+>
 > - Inventory buffer: 8 days
 > - Risk calculation: 12 ≥ 8 → Score +50
 > - Criticality: HIGH → Score +25
@@ -495,13 +507,13 @@ The hybrid architecture ensures:
 
 ## 18. Limitations
 
-| Limitation | Impact | Mitigation |
-|------------|--------|------------|
-| **External Data Quality** | Global event database is simulated | Real-time API integration planned |
-| **LLM Hallucination Risk** | Agent may misinterpret context | Deterministic scoring layer provides grounding |
-| **Simulation Simplifications** | Scenarios use fixed delay modifiers | Configurable scenario parameters |
-| **Context Window Limits** | Smaller models have limited context | Context-aware truncation and hybrid architecture |
-| **Rate Limits** | Free tier has usage quotas | Automatic model failover |
+| Limitation                           | Impact                              | Mitigation                                       |
+| ------------------------------------ | ----------------------------------- | ------------------------------------------------ |
+| **External Data Quality**      | Global event database is simulated  | Real-time API integration planned                |
+| **LLM Hallucination Risk**     | Agent may misinterpret context      | Deterministic scoring layer provides grounding   |
+| **Simulation Simplifications** | Scenarios use fixed delay modifiers | Configurable scenario parameters                 |
+| **Context Window Limits**      | Smaller models have limited context | Context-aware truncation and hybrid architecture |
+| **Rate Limits**                | Free tier has usage quotas          | Automatic model failover                         |
 
 ---
 
@@ -581,19 +593,13 @@ Resilienz.AI/
 >
 > A working demonstration showcasing the complete workflow from risk detection through scenario simulation is available.
 >
-> **Watch the walkthrough**: [Add your Loom/YouTube link here]
+> **Watch the walkthrough**: [need to add my YouTube demo link]
 >
 > **GIF Preview**: The dashboard auto-refreshes on scenario trigger, with real-time map visualisation and thought-trace streaming.
 
 ---
 
-## 22. License
-
-MIT License — See [LICENSE](LICENSE) for details.
-
----
-
-## 23. About the Author
+## 22. About the Author
 
 **Balaji Addanki** — AI/ML Engineer specializing in autonomous agent systems and supply chain intelligence.
 
@@ -605,6 +611,7 @@ MIT License — See [LICENSE](LICENSE) for details.
 - **Supply Chain Intelligence**: Domain-specific agent tools for procurement risk management
 
 This project showcases skills in:
+
 - AI Agent Architecture (ReAct-style loops, tool orchestration)
 - Full-Stack Development (Flask + Vanilla JS)
 - Data Engineering (SQLite + ChromaDB hybrid)

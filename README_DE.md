@@ -17,7 +17,7 @@ python api/app.py
 # 4. KI-Gedanken-Stream in Echtzeit beobachten
 ```
 
-👉 **Demo-Video**: [Hier Ihren Loom/YouTube-Link einfügen]
+👉 **Demo-Video**: [my youtube demo link]
 
 ---
 
@@ -45,13 +45,13 @@ Resilienz.AI nutzt einen spezialisierten KI-Agenten. Dieser Agent überwacht st�
 
 ### Was ist anders?
 
-| Traditioneller Weg | Resilienz.AI |
-|---------------------|--------------|
-| Manuelle Überprüfungen | Kontinuierliche autonome Überwachung |
+| Traditioneller Weg          | Resilienz.AI                          |
+| --------------------------- | ------------------------------------- |
+| Manuelle Überprüfungen    | Kontinuierliche autonome Überwachung |
 | Black-Box KI-Entscheidungen | Volle Transparenz durch Thought-Trace |
-| Reaktives Problemlösen | Proaktive Risikoerkennung |
-| Abhängigkeit von einem LLM | Multi-Modell-Architektur |
-| Eine Datenquelle | Hybrid SQLite + Vector DB |
+| Reaktives Problemlösen     | Proaktive Risikoerkennung             |
+| Abhängigkeit von einem LLM | Multi-Modell-Architektur              |
+| Eine Datenquelle            | Hybrid SQLite + Vector DB             |
 
 ---
 
@@ -59,16 +59,17 @@ Resilienz.AI nutzt einen spezialisierten KI-Agenten. Dieser Agent überwacht st�
 
 Traditionelle Dashboards zeigen Daten. Resilienz.AI handelt darauf.
 
-| Dashboard-Analyse | Resilienz.AI Agent |
-|--------------------|-------------------|
-| Zeigt rohe Daten | Erkennt Risiken automatisch |
-| Braucht menschliche Interpretation | Untersucht Ursachen automatisch |
-| Statische Filter und Warnungen | Empfiehlt konkrete Maßnahmen |
-| Passive Anzeige | Führt Warnungen aus (Risiko ≥ 70) |
+| Dashboard-Analyse                  | Resilienz.AI Agent                  |
+| ---------------------------------- | ----------------------------------- |
+| Zeigt rohe Daten                   | Erkennt Risiken automatisch         |
+| Braucht menschliche Interpretation | Untersucht Ursachen automatisch     |
+| Statische Filter und Warnungen     | Empfiehlt konkrete Maßnahmen       |
+| Passive Anzeige                    | Führt Warnungen aus (Risiko ≥ 70) |
 
 **Der Unterschied**: Passive Analytik → Aktives Entscheidungsunterstützungssystem
 
 Der Agent zeigt nicht nur Informationen. Er:
+
 1. Überwacht den Lieferkettenzustand ständig
 2. Untersucht Anomalien selbstständig
 3. Berechnet Risiken mit deterministischer + LLM-Begründung
@@ -78,12 +79,12 @@ Der Agent zeigt nicht nur Informationen. Er:
 
 ## 3. Autonomie-Modell
 
-| Aspekt | Implementierung |
-|--------|----------------|
-| **Auslöser-Modus** | Manuell (über UI) + Bereit für geplante Ausführung (cron-bereit) |
-| **Entscheidungsfindung** | Vollautomatische Risikobewertung |
-| **Aktionen** | Warnungen + Empfehlungen (automatische Eskalation bei Risiko ≥ 70) |
-| **Menschliche Überschreibung** | Immer möglich durch Thought-Trace-Sichtbarkeit |
+| Aspekt                                | Implementierung                                                     |
+| ------------------------------------- | ------------------------------------------------------------------- |
+| **Auslöser-Modus**             | Manuell (über UI) + Bereit für geplante Ausführung (cron-bereit) |
+| **Entscheidungsfindung**        | Vollautomatische Risikobewertung                                    |
+| **Aktionen**                    | Warnungen + Empfehlungen (automatische Eskalation bei Risiko ≥ 70) |
+| **Menschliche Überschreibung** | Immer möglich durch Thought-Trace-Sichtbarkeit                     |
 
 ---
 
@@ -91,27 +92,27 @@ Der Agent zeigt nicht nur Informationen. Er:
 
 ### Intelligenz-Schicht
 
-| Funktion | Beschreibung |
-|---------|-------------|
-| **Echtzeit-Risikoerkennung** | Überwacht 50+ Bestellungen mit Lieferantenstatus, Lagerpuffern und globalen Störungssignalen |
-| **Think-Act-Loop Architektur** | Autonomer Agent durchläuft Denken → Planen → Handeln → Beobachten → Reflektieren |
-| **Szenario-Simulation** | Risikofreie Speichertests für geopolitische Krisen, Hafenarbeiterstreiks und Energiekrisen |
+| Funktion                             | Beschreibung                                                                                   |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| **Echtzeit-Risikoerkennung**   | Überwacht 50+ Bestellungen mit Lieferantenstatus, Lagerpuffern und globalen Störungssignalen |
+| **Think-Act-Loop Architektur** | Autonomer Agent durchläuft Denken → Planen → Handeln → Beobachten → Reflektieren          |
+| **Szenario-Simulation**        | Risikofreie Speichertests für geopolitische Krisen, Hafenarbeiterstreiks und Energiekrisen    |
 
 ### Transparenz-Schicht
 
-| Funktion | Beschreibung |
-|---------|-------------|
-| **KI Thought-Trace** | Echtzeit-Streaming der internen Überlegungen des Agenten über Server-Sent Events (SSE) |
-| **Erklärbare Ausgaben** | Jedes Risikoergebnis zeigt Datenquellen, Bewertungsfaktoren und Konfidenzniveau |
-| **Audit-Trail** | Vollständige Protokollierung aller Agentenentscheidungen |
+| Funktion                       | Beschreibung                                                                             |
+| ------------------------------ | ---------------------------------------------------------------------------------------- |
+| **KI Thought-Trace**     | Echtzeit-Streaming der internen Überlegungen des Agenten über Server-Sent Events (SSE) |
+| **Erklärbare Ausgaben** | Jedes Risikoergebnis zeigt Datenquellen, Bewertungsfaktoren und Konfidenzniveau          |
+| **Audit-Trail**          | Vollständige Protokollierung aller Agentenentscheidungen                                |
 
 ### Visualisierungs-Schicht
 
-| Funktion | Beschreibung |
-|---------|-------------|
+| Funktion                      | Beschreibung                                                                      |
+| ----------------------------- | --------------------------------------------------------------------------------- |
 | **Globale Risikokarte** | Interaktive Leaflet.js-Karte zeigt Lieferantenstandorte, Routen und Risikogebiete |
-| **Routenverfolgung** | Visuelle Verbindung vom Werk zu Lieferanten mit Verzögerungsanzeigen |
-| **Szenario-Dashboards** | Echtzeit-Dashboard-Updates bei Szenarioaktivierung |
+| **Routenverfolgung**    | Visuelle Verbindung vom Werk zu Lieferanten mit Verzögerungsanzeigen             |
+| **Szenario-Dashboards** | Echtzeit-Dashboard-Updates bei Szenarioaktivierung                                |
 
 ---
 
@@ -125,15 +126,15 @@ Der Agent zeigt nicht nur Informationen. Er:
 
 ### Komponenten-Verantwortlichkeiten
 
-| Komponente | Verantwortung | Technologie |
-|-----------|----------------|-------------|
-| **RAgent (Gehirn)** | Koordiniert Denkschleife, Werkzeugauswahl und Antwortzusammenfassung | Python 3.11+ |
-| **LLMSwitch** | Modell-agnostisches LLM-Routing mit automatischem Failover | OpenRouter SDK |
-| **Werkzeugschicht** | Python-Funktionen für Datenabruf und Aktionen | SQLite, ChromaDB |
-| **Audit-Modul** | Hybrid-Logik: deterministisches Python + LLM-Phasen | Python + LLM |
-| **API-Server** | REST-Endpunkte, SSE-Streaming, Szenarioverwaltung | Flask + Flask-CORS |
-| **Dashboard** | Glassmorphism UI, interaktive Karte, Thought-Trace-Anzeige | Vanilla JS + Leaflet.js |
-| **Datenschicht** | Strukturierte Daten (SQLite) + Semantischer Kontext (Vector DB) | SQLite, ChromaDB |
+| Komponente                | Verantwortung                                                        | Technologie             |
+| ------------------------- | -------------------------------------------------------------------- | ----------------------- |
+| **RAgent (Gehirn)** | Koordiniert Denkschleife, Werkzeugauswahl und Antwortzusammenfassung | Python 3.11+            |
+| **LLMSwitch**       | Modell-agnostisches LLM-Routing mit automatischem Failover           | OpenRouter SDK          |
+| **Werkzeugschicht** | Python-Funktionen für Datenabruf und Aktionen                       | SQLite, ChromaDB        |
+| **Audit-Modul**     | Hybrid-Logik: deterministisches Python + LLM-Phasen                  | Python + LLM            |
+| **API-Server**      | REST-Endpunkte, SSE-Streaming, Szenarioverwaltung                    | Flask + Flask-CORS      |
+| **Dashboard**       | Glassmorphism UI, interaktive Karte, Thought-Trace-Anzeige           | Vanilla JS + Leaflet.js |
+| **Datenschicht**    | Strukturierte Daten (SQLite) + Semantischer Kontext (Vector DB)      | SQLite, ChromaDB        |
 
 ---
 
@@ -147,15 +148,15 @@ Resilienz.AI nutzt einen verbesserten autonomen Agentenloop. Er basiert auf ReAc
 
 ### Deterministisch vs LLM Aufteilung
 
-| Was | Wer macht es | Warum |
-|------|-------------|-----|
-| Risikoberechnung (0-100) | **Deterministisch** Python | Mathematisch präzise, kein Halluzinationsrisiko |
-| Verzögerungsberechnung | **Deterministisch** Python | Exakte Zahlen erforderlich |
-| Bestandsschwellenwertprüfung | **Deterministisch** Python | Boolesche Logik, keine Mehrdeutigkeit |
-| Risikoerklärung | **LLM** | Natürliche Sprachausgabe |
-| Priorisierungsverfeinerung | **LLM** | Kontextbewusste Sortierung |
-| Berichterstellung | **LLM** | Professionelles Format |
-| Globale Ereignisrelevanz | **LLM + Vector DB** | Semantisches Verständnis |
+| Was                           | Wer macht es                     | Warum                                            |
+| ----------------------------- | -------------------------------- | ------------------------------------------------ |
+| Risikoberechnung (0-100)      | **Deterministisch** Python | Mathematisch präzise, kein Halluzinationsrisiko |
+| Verzögerungsberechnung       | **Deterministisch** Python | Exakte Zahlen erforderlich                       |
+| Bestandsschwellenwertprüfung | **Deterministisch** Python | Boolesche Logik, keine Mehrdeutigkeit            |
+| Risikoerklärung              | **LLM**                    | Natürliche Sprachausgabe                        |
+| Priorisierungsverfeinerung    | **LLM**                    | Kontextbewusste Sortierung                       |
+| Berichterstellung             | **LLM**                    | Professionelles Format                           |
+| Globale Ereignisrelevanz      | **LLM + Vector DB**        | Semantisches Verständnis                        |
 
 ### Prompt-Engineering-Strategie
 
@@ -177,29 +178,29 @@ Der Agent nutzt eine **optimierte Prompt-Architektur** mit effizientem Tokenmana
 
 ### Datenquellen-Werkzeuge
 
-| Werkzeug | Datenquelle | Anwendungsfall |
-|------|-------------|--------------|
-| `get_delayed_orders()` | SQLite | Findet Bestellungen mit Verzögerungen |
-| `get_inventory_status()` | SQLite | Prüft Lagerbestand und Reichweite |
-| `get_supplier_info()` | SQLite | Zeigt Lieferantenzuverlässigkeit |
-| `search_global_events()` | ChromaDB | Semantische Suche nach Störungen |
+| Werkzeug                   | Datenquelle | Anwendungsfall                         |
+| -------------------------- | ----------- | -------------------------------------- |
+| `get_delayed_orders()`   | SQLite      | Findet Bestellungen mit Verzögerungen |
+| `get_inventory_status()` | SQLite      | Prüft Lagerbestand und Reichweite     |
+| `get_supplier_info()`    | SQLite      | Zeigt Lieferantenzuverlässigkeit      |
+| `search_global_events()` | ChromaDB    | Semantische Suche nach Störungen      |
 
 ### Aktions-Werkzeuge
 
-| Werkzeug | Ziel | Anwendungsfall |
-|------|--------|--------------|
-| `calculate_risk_score()` | Interne Logik | Deterministische Risikoberechnung (0-100) |
-| `get_alternative_supplier()` | SQLite | Findet Ersatzlieferanten |
-| `send_risk_alert()` | E-Mail + PDF | Automatische Warnung mit Maßnahmenplan |
+| Werkzeug                       | Ziel          | Anwendungsfall                            |
+| ------------------------------ | ------------- | ----------------------------------------- |
+| `calculate_risk_score()`     | Interne Logik | Deterministische Risikoberechnung (0-100) |
+| `get_alternative_supplier()` | SQLite        | Findet Ersatzlieferanten                  |
+| `send_risk_alert()`          | E-Mail + PDF  | Automatische Warnung mit Maßnahmenplan   |
 
 ### Externe Integrationen
 
-| Integration | Technologie | Zweck |
-|------------|------------|-------|
-| **Karten** | Leaflet.js + CARTO | Globale Lieferantenvisualisierung |
-| **LLM Gateway** | OpenRouter API | Multi-Modell-Inferenz mit Failover |
-| **E-Mail** | SMTP (Gmail) | Warnungsbenachrichtigungen |
-| **PDF-Erstellung** | fpdf2 | Risikobericht-Erstellung |
+| Integration              | Technologie        | Zweck                              |
+| ------------------------ | ------------------ | ---------------------------------- |
+| **Karten**         | Leaflet.js + CARTO | Globale Lieferantenvisualisierung  |
+| **LLM Gateway**    | OpenRouter API     | Multi-Modell-Inferenz mit Failover |
+| **E-Mail**         | SMTP (Gmail)       | Warnungsbenachrichtigungen         |
+| **PDF-Erstellung** | fpdf2              | Risikobericht-Erstellung           |
 
 ---
 
@@ -209,11 +210,11 @@ Dies ist eine besondere Funktion. Sie ermöglicht **risikofreie Entscheidungsunt
 
 ### Verfügbare Szenarien
 
-| Szenario | Beschreibung | Betroffene Regionen | Verzögerung |
-|----------|-------------|------------------|--------------|
-| **Suez-Blockade** | Simulierte Krisensituation im Roten Meer | Japan, China, Südkorea | +10-14 Tage |
-| **Hamburger Hafenarbeiterstreik** | Simulierter Streik am größten deutschen Hafen | Deutschland, Niederlande, Belgien | +7 Tage |
-| **Energiekrise** | Simulierter nationwide Energiemangel | Deutschland | +4 Tage |
+| Szenario                                | Beschreibung                                    | Betroffene Regionen               | Verzögerung |
+| --------------------------------------- | ----------------------------------------------- | --------------------------------- | ------------ |
+| **Suez-Blockade**                 | Simulierte Krisensituation im Roten Meer        | Japan, China, Südkorea           | +10-14 Tage  |
+| **Hamburger Hafenarbeiterstreik** | Simulierter Streik am größten deutschen Hafen | Deutschland, Niederlande, Belgien | +7 Tage      |
+| **Energiekrise**                  | Simulierter nationwide Energiemangel            | Deutschland                       | +4 Tage      |
 
 ### Wie Simulationen funktionieren
 
@@ -261,13 +262,13 @@ eventSource.onmessage = (e) => {
 
 ## 10. Design-Abwägungen
 
-| Entscheidung | Gewählt | Begründung |
-|----------|--------|-----------|
-| **SQLite vs PostgreSQL** | SQLite | Einfachheit und Portabilität für Demo; kein externer DB-Server nötig |
-| **SSE vs WebSockets** | SSE | Einfachheit und unidirektionales Streaming; ausreichend für Thought-Trace |
-| **Multi-Modell vs Einzelmodell** | Multi-Modell über OpenRouter | Resilienz über Konsistenz; Failover verhindert Deadlocks |
-| **Python LLM-Werkzeuge vs LangChain** | Eigene Implementierung | Volle Kontrolle, leichterer Fußabdruck, bessere Lernerfahrung |
-| **In-Memory-Szenarien vs persistent** | In-Memory Overrides | Risikofreies Testen ohne Berührung der Produktionsdaten |
+| Entscheidung                                | Gewählt                      | Begründung                                                                |
+| ------------------------------------------- | ----------------------------- | -------------------------------------------------------------------------- |
+| **SQLite vs PostgreSQL**              | SQLite                        | Einfachheit und Portabilität für Demo; kein externer DB-Server nötig    |
+| **SSE vs WebSockets**                 | SSE                           | Einfachheit und unidirektionales Streaming; ausreichend für Thought-Trace |
+| **Multi-Modell vs Einzelmodell**      | Multi-Modell über OpenRouter | Resilienz über Konsistenz; Failover verhindert Deadlocks                  |
+| **Python LLM-Werkzeuge vs LangChain** | Eigene Implementierung        | Volle Kontrolle, leichterer Fußabdruck, bessere Lernerfahrung             |
+| **In-Memory-Szenarien vs persistent** | In-Memory Overrides           | Risikofreies Testen ohne Berührung der Produktionsdaten                   |
 
 ---
 
@@ -288,49 +289,49 @@ Die Demo verwendet **deterministisch generierte Daten**, um Reproduzierbarkeit z
 
 ### Backend
 
-| Komponente | Technologie | Version |
-|-----------|------------|---------|
-| **Laufzeit** | Python | 3.11+ |
-| **Web-Framework** | Flask | 3.0+ |
-| **Datenbank (Strukturiert)** | SQLite | 3.x |
-| **Datenbank (Vektor)** | ChromaDB | 0.4+ |
-| **LLM Gateway** | OpenRouter | API |
-| **PDF-Erstellung** | fpdf2 | 2.7+ |
-| **Konfiguration** | python-dotenv | 1.0+ |
+| Komponente                         | Technologie   | Version |
+| ---------------------------------- | ------------- | ------- |
+| **Laufzeit**                 | Python        | 3.11+   |
+| **Web-Framework**            | Flask         | 3.0+    |
+| **Datenbank (Strukturiert)** | SQLite        | 3.x     |
+| **Datenbank (Vektor)**       | ChromaDB      | 0.4+    |
+| **LLM Gateway**              | OpenRouter    | API     |
+| **PDF-Erstellung**           | fpdf2         | 2.7+    |
+| **Konfiguration**            | python-dotenv | 1.0+    |
 
 ### Frontend
 
-| Komponente | Technologie | Version |
-|-----------|------------|---------|
-| **UI-Framework** | Vanilla JS | ES6+ |
-| **Karten** | Leaflet.js | 1.9+ |
-| **Kartenkacheln** | CARTO Dark Matter | - |
-| **Styling** | Eigenes CSS (Glassmorphism) | - |
-| **Streaming** | Server-Sent Events | Nativ |
+| Komponente              | Technologie                 | Version |
+| ----------------------- | --------------------------- | ------- |
+| **UI-Framework**  | Vanilla JS                  | ES6+    |
+| **Karten**        | Leaflet.js                  | 1.9+    |
+| **Kartenkacheln** | CARTO Dark Matter           | -       |
+| **Styling**       | Eigenes CSS (Glassmorphism) | -       |
+| **Streaming**     | Server-Sent Events          | Nativ   |
 
 ### KI/ML
 
-| Komponente | Technologie | Hinweise |
-|-----------|------------|---------|
-| **Primäre Modelle** | OpenRouter Aggregiert | 20+ kostenlose Modelle |
-| **Modell-Switch** | Eigenes LLMSwitch | Auto-Failover |
-| **Benchmark-Modelle** | Gemini 2.0 Flash, Llama 3.3, DeepSeek R1 | getestet |
+| Komponente                  | Technologie                              | Hinweise               |
+| --------------------------- | ---------------------------------------- | ---------------------- |
+| **Primäre Modelle**  | OpenRouter Aggregiert                    | 20+ kostenlose Modelle |
+| **Modell-Switch**     | Eigenes LLMSwitch                        | Auto-Failover          |
+| **Benchmark-Modelle** | Gemini 2.0 Flash, Llama 3.3, DeepSeek R1 | getestet               |
 
 ---
 
 ## 13. Wichtige API-Endpunkte
 
-| Methode | Endpunkt | Beschreibung |
-|--------|----------|-------------|
-| `POST` | `/api/agent/audit` | Autonomes Risikoaudit auslösen |
-| `POST` | `/api/agent/chat` | Agent mit natürlicher Sprache abfragen |
-| `GET` | `/api/stream/thoughts` | SSE-Stream der Agentenbegründung |
-| `GET` | `/api/map/data` | Geografische Lieferantendaten |
-| `POST` | `/api/scenario/trigger` | Stresstest-Szenario aktivieren |
-| `POST` | `/api/scenario/reset` | Szenario zurücksetzen |
-| `GET` | `/api/dashboard/summary` | Zusammenfassungsmetriken |
-| `GET` | `/api/orders/delayed` | Liste verzögerter Bestellungen |
-| `GET` | `/api/inventory` | Aktuelle Lagerbestände |
+| Methode  | Endpunkt                   | Beschreibung                            |
+| -------- | -------------------------- | --------------------------------------- |
+| `POST` | `/api/agent/audit`       | Autonomes Risikoaudit auslösen         |
+| `POST` | `/api/agent/chat`        | Agent mit natürlicher Sprache abfragen |
+| `GET`  | `/api/stream/thoughts`   | SSE-Stream der Agentenbegründung       |
+| `GET`  | `/api/map/data`          | Geografische Lieferantendaten           |
+| `POST` | `/api/scenario/trigger`  | Stresstest-Szenario aktivieren          |
+| `POST` | `/api/scenario/reset`    | Szenario zurücksetzen                  |
+| `GET`  | `/api/dashboard/summary` | Zusammenfassungsmetriken                |
+| `GET`  | `/api/orders/delayed`    | Liste verzögerter Bestellungen         |
+| `GET`  | `/api/inventory`         | Aktuelle Lagerbestände                 |
 
 ---
 
@@ -373,12 +374,12 @@ python api/app.py
 
 ### Umgebungsvariablen
 
-| Variable | Erforderlich | Beschreibung |
-|----------|----------|-------------|
-| `OPENROUTER_API_KEY` | Ja | API-Schlüssel von openrouter.ai |
-| `ALERT_EMAIL_FROM` | Nein | Absender-E-Mail (Standard: agent@resilienz.ai) |
-| `ALERT_EMAIL_TO` | Nein | Empfänger-E-Mail (Standard: procurement@company.de) |
-| `SMTP_PASSWORD` | Nein | App-Passwort für Gmail SMTP |
+| Variable               | Erforderlich | Beschreibung                                         |
+| ---------------------- | ------------ | ---------------------------------------------------- |
+| `OPENROUTER_API_KEY` | Ja           | API-Schlüssel von openrouter.ai                     |
+| `ALERT_EMAIL_FROM`   | Nein         | Absender-E-Mail (Standard: agent@resilienz.ai)       |
+| `ALERT_EMAIL_TO`     | Nein         | Empfänger-E-Mail (Standard: procurement@company.de) |
+| `SMTP_PASSWORD`      | Nein         | App-Passwort für Gmail SMTP                         |
 
 ---
 
@@ -402,10 +403,10 @@ python api/app.py
 1. Ein Szenario aus dem Dropdown auswählen (z.B. „Suez-Kanal-Blockade")
 2. **„⚡ Auslösen"** klicken
 3. Beobachten:
+
    - Kartenmarkierungen werden orange/rot
    - Betroffene Lieferanten zeigen Verzögerungen
    - Dashboard-Metriken aktualisieren
-
 4. **„🔄 Zurücksetzen"** klicken, um zum Ausgangszustand zurückzukehren
 
 ---
@@ -461,11 +462,11 @@ Die Lieferkette zeigt **erhöhtes Risiko** wegen:
 
 ### Systemmetriken
 
-| Metrik | Wert | Hinweise |
-|--------|-------|-------|
-| **Audit-Abschluss** | ~8-15 Sekunden | Abhängig von LLM-Antwortzeit |
-| **SSE-Latenz** | <100ms | Browser-natives Streaming |
-| **Datenbankabfragen** | 5-12 pro Audit | Nur deterministisches Python |
+| Metrik                      | Wert           | Hinweise                      |
+| --------------------------- | -------------- | ----------------------------- |
+| **Audit-Abschluss**   | ~8-15 Sekunden | Abhängig von LLM-Antwortzeit |
+| **SSE-Latenz**        | <100ms         | Browser-natives Streaming     |
+| **Datenbankabfragen** | 5-12 pro Audit | Nur deterministisches Python  |
 
 ### Genauigkeitsmerkmale
 
@@ -477,15 +478,16 @@ Die Hybrid-Architektur sorgt für:
 
 ### Bekannte Fehlerfälle
 
-| Fehler | Ursache | Gegenmaßnahme |
-|--------|--------|---------------|
-| Falsche Priorisierung | Fehlende Lieferantendaten im Kontext | Kontextfenster vergrößern oder Fallback-Datenquelle hinzufügen |
-| LLM-Überverallgemeinerung | Modell generiert plausible aber falsche Ursache | Deterministische Bewertungsschicht als Grundlage |
-| Szenario-Injektion fehlgeschlagen | ChromaDB nicht verfügbar | Anmutende Degradation; Szenario gilt trotzdem für SQLite |
+| Fehler                            | Ursache                                         | Gegenmaßnahme                                                    |
+| --------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------- |
+| Falsche Priorisierung             | Fehlende Lieferantendaten im Kontext            | Kontextfenster vergrößern oder Fallback-Datenquelle hinzufügen |
+| LLM-Überverallgemeinerung        | Modell generiert plausible aber falsche Ursache | Deterministische Bewertungsschicht als Grundlage                  |
+| Szenario-Injektion fehlgeschlagen | ChromaDB nicht verfügbar                       | Anmutende Degradation; Szenario gilt trotzdem für SQLite         |
 
 ### Testfall
 
 > **Szenario**: TechParts GmbH Lieferung um 12 Tage verzögert
+>
 > - Lagerpuffer: 8 Tage
 > - Risikoberechnung: 12 ≥ 8 → Wert +50
 > - Kritikalität: HOCH → Wert +25
@@ -495,13 +497,13 @@ Die Hybrid-Architektur sorgt für:
 
 ## 18. Einschränkungen
 
-| Einschränkung | Auswirkung | Gegenmaßnahme |
-|------------|--------|------------|
-| **Externe Datenqualität** | Globale Ereignisdatenbank ist simuliert | Echtzeit-API-Integration geplant |
-| **LLM Halluzinationsrisiko** | Agent kann Kontext falsch verstehen | Deterministische Bewertungsschicht als Grundlage |
-| **Simulationsvereinfachungen** | Szenarien nutzen feste Verzögerungsmodifikatoren | Konfigurierbare Szenarioparameter |
-| **Kontextfenster-Grenzen** | Kleinere Modelle haben begrenzten Kontext | Kontextbewusste Kürzung und Hybrid-Architektur |
-| **Rate-Limits** | Kostenloser Tier hat Nutzungsquoten | Automatisches Modell-Failover |
+| Einschränkung                       | Auswirkung                                        | Gegenmaßnahme                                   |
+| ------------------------------------ | ------------------------------------------------- | ------------------------------------------------ |
+| **Externe Datenqualität**     | Globale Ereignisdatenbank ist simuliert           | Echtzeit-API-Integration geplant                 |
+| **LLM Halluzinationsrisiko**   | Agent kann Kontext falsch verstehen               | Deterministische Bewertungsschicht als Grundlage |
+| **Simulationsvereinfachungen** | Szenarien nutzen feste Verzögerungsmodifikatoren | Konfigurierbare Szenarioparameter                |
+| **Kontextfenster-Grenzen**     | Kleinere Modelle haben begrenzten Kontext         | Kontextbewusste Kürzung und Hybrid-Architektur  |
+| **Rate-Limits**                | Kostenloser Tier hat Nutzungsquoten               | Automatisches Modell-Failover                    |
 
 ---
 
@@ -582,19 +584,13 @@ Resilienz.AI/
 >
 > Eine funktionierende Demonstration des vollständigen Workflows von Risikoerkennung bis Szenariosimulation ist verfügbar.
 >
-> **Video ansehen**: [Hier Ihren Loom/YouTube-Link einfügen]
+> **Video ansehen**: [my youtube demo link]
 >
 > **GIF-Vorschau**: Das Dashboard aktualisiert sich automatisch bei Szenarioauslösung, mit Echtzeit-Kartenvisualisierung und Thought-Trace-Streaming.
 
 ---
 
-## 22. Lizenz
-
-MIT-Lizenz — Siehe [LICENSE](LICENSE) für Details.
-
----
-
-## 23. Über den Autor
+## 22. Über den Autor
 
 **Balaji Addanki** — KI/ML-Ingenieur mit Spezialisierung auf autonome Agentensysteme und Lieferkettenintelligenz.
 
@@ -606,6 +602,7 @@ MIT-Lizenz — Siehe [LICENSE](LICENSE) für Details.
 - **Lieferkettenintelligenz**: Domänenspezifische Agentenwerkzeuge für Beschaffungsrisikomanagement
 
 Dieses Projekt zeigt Fähigkeiten in:
+
 - KI-Agentenarchitektur (ReAct-Schleifen, Werkzeugorchestrierung)
 - Full-Stack-Entwicklung (Flask + Vanilla JS)
 - Data Engineering (SQLite + ChromaDB-Hybrid)
